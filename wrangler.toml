@@ -1,0 +1,8 @@
+name = "planner-app"
+compatibility_date = "2024-01-01"
+pages_build_output_dir = ".svelte-kit/cloudflare"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "planner-db"
+database_id = "e479a033-6874-4668-b379-afac76207c1d"  # Replace with actual ID from step 6
