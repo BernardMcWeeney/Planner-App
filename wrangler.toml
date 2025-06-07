@@ -1,7 +1,11 @@
 name               = "planner-app"
 compatibility_date = "2025-06-07"
+account_id      = "990cd3c99eee0081b454bbcc43d23a9d"
 main               = ".svelte-kit/cloudflare/_worker.js"
 workers_dev        = true
+
+[observability.logs]
+enabled = true
 
 [assets]
 directory = ".svelte-kit/cloudflare"
