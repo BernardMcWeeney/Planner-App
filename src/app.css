@@ -1,1 +1,31 @@
+/* src/app.css */
 @import 'tailwindcss';
+
+@layer base {
+  :root {
+    /* Your light theme accent color */
+    --color-accent-light: 99 102 241; /* Indigo 500 */
+    --color-accent-light-contrast: 255 255 255;
+  }
+  
+  .dark {
+     /* Your dark theme accent color */
+    --color-accent-dark: 129 140 248; /* Indigo 400 */
+    --color-accent-dark-contrast: 255 255 255;
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-700 dark:bg-slate-900 dark:text-slate-300;
+  }
+  
+  /* Custom scrollbar for a polished look */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-100 dark:bg-slate-800;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-slate-300 dark:bg-slate-600;
+  }
+}
