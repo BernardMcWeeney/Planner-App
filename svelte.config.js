@@ -16,10 +16,6 @@ const config = {
         environment: undefined,
         persist: undefined
       },
-
-      // Fallback for non-matching assets:
-      //  • 'plaintext': serve a simple 404.html
-      //  • 'spa': render your index.html SPA shell
       fallback: 'plaintext',
 
       // Only for Cloudflare Pages: fine-tune which routes hit your Workers
