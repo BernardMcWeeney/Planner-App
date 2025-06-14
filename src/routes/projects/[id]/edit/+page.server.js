@@ -1,3 +1,4 @@
+// src/routes/projects/[id]/edit/+page.server.js
 import { fail, redirect, error } from '@sveltejs/kit';
 
 /** @type {import('./$types').PageServerLoad} */

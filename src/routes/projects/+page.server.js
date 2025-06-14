@@ -1,3 +1,4 @@
+//src/routes/projects/+page.server.js
 import { fail } from '@sveltejs/kit';
 
 /** @type {import('./$types').PageServerLoad} */

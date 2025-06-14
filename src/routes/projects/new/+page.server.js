@@ -1,3 +1,4 @@
+// src/routes/projects/new/+page.server.js
 import { fail, redirect } from '@sveltejs/kit';
 
 /** @type {import('./$types').Actions} */
