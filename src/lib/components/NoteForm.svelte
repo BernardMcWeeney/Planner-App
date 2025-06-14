@@ -1,28 +1,19 @@
-<script>
+<script lang="ts">
   import { enhance } from '$app/forms';
   import { createEventDispatcher } from 'svelte';
 
-  // If a 'note' object is passed, we're editing. If not, we're creating.
-  export let note = {}; 
-  // We always need the project ID to associate the note correctly.
-  export let projectId;
+  export let note: any = {};
+  export let projectId: number;
 
   const dispatch = createEventDispatcher();
 
-  // This function is called by use:enhance after the form action completes.
-  const handleFormResult = () => {
-    return ({ result }) => {
-      // Check for a successful result from the server action
-      if (result.type === 'success') {
-        dispatch('save'); // Tell the parent page (the workspace) that we saved.
-      }
-      // You could add else logic here to show form-specific errors from `fail()`
-    };
+  const handleFormResult = () => ({ result }) => {
+    if (result.type === 'success') dispatch('save');
   };
 </script>
 
-<div class="p-6 border rounded-lg bg-gray-50 my-4 shadow-inner">
-  <h3 class="text-xl font-semibold mb-4 text-gray-800">{note.id ? 'Edit Note' : 'New Note'}</h3>
+<div class="p-6 bg-surface dark:bg-neutral-800/50 border border-default rounded-xl my-4">
+  <h3 class="text-xl font-semibold mb-4 text-text">{note.id ? 'Edit Note' : 'New Note'}</h3>
   
   <form 
     method="POST" 
@@ -33,31 +24,18 @@
     <input type="hidden" name="project_id" value={projectId} />
 
     <div>
-      <label for="title" class="block text-sm font-medium text-gray-700">Title (Optional)</label>
-      <input 
-        type="text" 
-        name="title" 
-        value={note.title || ''} 
-        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+      <label for="title" class="block text-sm font-medium text-muted">Title (Optional)</label>
+      <input id="title" type="text" name="title" value={note.title || ''} class="mt-1 block w-full bg-transparent p-2 border border-default rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
     </div>
 
     <div>
-      <label for="content" class="block text-sm font-medium text-gray-700">Content</label>
-      <textarea 
-        name="content" 
-        rows="5" 
-        required
-        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">{note.content || ''}</textarea>
+      <label for="content" class="block text-sm font-medium text-muted">Content (Markdown Supported)</label>
+      <textarea id="content" name="content" rows="8" required class="mt-1 block w-full bg-transparent p-2 border border-default rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 font-mono text-sm">{note.content || ''}</textarea>
     </div>
 
-    <div class="flex justify-end space-x-2 pt-2">
-       <button 
-         type="button" 
-         on:click={() => dispatch('cancel')} 
-         class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300">Cancel</button>
-       <button 
-         type="submit" 
-         class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">{note.id ? 'Update Note' : 'Create Note'}</button>
+    <div class="flex justify-end space-x-3 pt-2">
+       <button type="button" on:click={() => dispatch('cancel')} class="bg-neutral-200 dark:bg-neutral-700 text-text px-4 py-2 rounded-lg hover:bg-neutral-300 dark:hover:bg-neutral-600 text-sm font-semibold transition-colors">Cancel</button>
+       <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 text-sm font-semibold transition-colors">{note.id ? 'Update Note' : 'Create Note'}</button>
     </div>
   </form>
 </div>

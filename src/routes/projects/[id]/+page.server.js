@@ -1,5 +1,3 @@
-/** src/routes/projects/[id]/+page.server.js */
-
 import { error, fail } from '@sveltejs/kit';
 
 /**
@@ -120,17 +118,16 @@ export const actions = {
       return fail(500, { error: 'Failed to delete task' });
     }
   },
-
   toggleTask: async ({ request, platform }) => {
     const formData = await request.formData();
     const id = formData.get('id');
-    const currentStatus = formData.get('done') === 'true';
+    const currentStatusIsDone = formData.get('done') === '1';
     
     try {
       await platform.env.DB.prepare(
         "UPDATE tasks SET done = ? WHERE id = ?"
-      ).bind(currentStatus ? 0 : 1, id).run();
-      return { success: true };
+      ).bind(currentStatusIsDone ? 0 : 1, id).run();
+      return { success: true, newStatus: !currentStatusIsDone }; 
     } catch (e) {
       console.error(e);
       return fail(500, { error: 'Failed to toggle task status.' });
@@ -233,6 +230,21 @@ export const actions = {
       return { success: true };
     } catch (e) {
       return fail(500, { error: 'Failed to delete idea' });
+    }
+  },
+  toggleIdeaStarred: async ({ request, platform }) => {
+    const formData = await request.formData();
+    const id = formData.get('id');
+    const currentStatusIsStarred = formData.get('starred') === '1';
+    
+    try {
+      await platform.env.DB.prepare(
+        "UPDATE ideas SET starred = ? WHERE id = ?"
+      ).bind(currentStatusIsStarred ? 0 : 1, id).run();
+      return { success: true }; 
+    } catch (e) {
+      console.error(e);
+      return fail(500, { error: 'Failed to toggle idea star.' });
     }
   },
 
